@@ -1,0 +1,14 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewBag._Title = "Server Error";
+}
+
+<p>An error occurred while processing your request.</p>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}

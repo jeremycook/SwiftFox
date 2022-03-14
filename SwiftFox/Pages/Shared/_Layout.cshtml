@@ -1,0 +1,64 @@
+﻿@using Microsoft.Extensions.Options
+@inject SiteLinks siteLinks
+@inject IOptions<SwiftFoxOptions> options
+@{
+    var site = options.Value.AppTitle;
+    var title = ViewBag._Title;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title - @site</title>
+    <link rel="stylesheet" href="~/_content/SwiftFox/site.css" asp-append-version="true" />
+    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "bootstrap": "https://cdn.skypack.dev/bootstrap",
+                "jquery-validation-unobtrusive": "https://cdn.skypack.dev/jquery-validation-unobtrusive"
+            }
+        }
+    </script>
+    <script type="module">import 'bootstrap';</script>
+</head>
+<body>
+    <nav class="site-navbar navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="~/">@site</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar-collapse" aria-controls="site-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="site-navbar-collapse">
+                <ul class="navbar-nav mb-2 mb-md-0">
+                    @foreach (var item in siteLinks.Links)
+                    {
+                        string href = Url.Content(item.Url);
+                        bool active = this.Context.Request.Path.StartsWithSegments(href);
+                        <li class="nav-item">
+                            <a class="nav-link@(active ? " active" : "")"@(active ? " aria-current=\"page\"" : "") href="@href">@item.Text</a>
+                        </li>
+                    }
+                </ul>
+                <form action="~/search" class="mx-md-3 d-flex">
+                    <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="~/user">Hi @User.Identity!.Name</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="site-main container-fluid">
+        <h1>@title</h1>
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
