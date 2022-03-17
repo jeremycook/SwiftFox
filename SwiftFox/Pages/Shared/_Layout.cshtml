@@ -14,14 +14,7 @@
     <title>@title - @site</title>
     <link rel="stylesheet" href="~/_content/SwiftFox/site.css" asp-append-version="true" />
     <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "bootstrap": "https://cdn.skypack.dev/bootstrap",
-                "jquery-validation-unobtrusive": "https://cdn.skypack.dev/jquery-validation-unobtrusive"
-            }
-        }
-    </script>
+    <partial name="_ImportMap" />
     <script type="module">import 'bootstrap';</script>
 </head>
 <body>
