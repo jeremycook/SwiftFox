@@ -47,23 +47,23 @@ namespace SwiftFox.Startup
             {
                 if (implementationType.GetCustomAttribute<ServiceAttribute>() is ServiceAttribute attribute)
                 {
-                    switch (attribute.ServiceScope)
+                    switch (attribute.ServiceLifetime)
                     {
-                        case ServiceType.Scoped:
+                        case Services.ServiceLifetime.Scoped:
                             if (attribute.ServiceType is not null)
                                 services.AddScoped(attribute.ServiceType, implementationType);
                             else
                                 services.AddScoped(implementationType);
                             break;
 
-                        case ServiceType.Singleton:
+                        case Services.ServiceLifetime.Singleton:
                             if (attribute.ServiceType is not null)
                                 services.AddSingleton(attribute.ServiceType, implementationType);
                             else
                                 services.AddSingleton(implementationType);
                             break;
 
-                        case ServiceType.Transient:
+                        case Services.ServiceLifetime.Transient:
                             if (attribute.ServiceType is not null)
                                 services.AddTransient(attribute.ServiceType, implementationType);
                             else

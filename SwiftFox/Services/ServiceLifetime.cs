@@ -1,6 +1,6 @@
 ﻿namespace SwiftFox.Services
 {
-    public enum ServiceType
+    public enum ServiceLifetime
     {
         Scoped,
         Singleton,

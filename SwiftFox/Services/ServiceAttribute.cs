@@ -3,18 +3,18 @@
     [AttributeUsage(AttributeTargets.Class)]
     public class ServiceAttribute : Attribute
     {
-        public ServiceAttribute(ServiceType serviceScope)
+        public ServiceAttribute(ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
         {
-            ServiceScope = serviceScope;
+            ServiceLifetime = serviceLifetime;
         }
 
-        public ServiceAttribute(ServiceType serviceScope, Type serviceType)
+        public ServiceAttribute(Type serviceType, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
         {
-            ServiceScope = serviceScope;
             ServiceType = serviceType;
+            ServiceLifetime = serviceLifetime;
         }
 
-        public ServiceType ServiceScope { get; }
+        public ServiceLifetime ServiceLifetime { get; }
         public Type? ServiceType { get; }
     }
 }
