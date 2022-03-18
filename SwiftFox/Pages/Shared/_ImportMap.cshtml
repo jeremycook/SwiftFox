@@ -1,8 +1,6 @@
-﻿<script type="importmap">
-    {
-        "imports": {
-            "bootstrap": "https://cdn.skypack.dev/bootstrap",
-            "jquery-validation-unobtrusive": "https://cdn.skypack.dev/jquery-validation-unobtrusive"
-        }
-    }
-</script>
+﻿@using SwiftFox.UI
+@inject ValueProvider<ImportMap> importMapProvider
+@{
+    var importMap = await importMapProvider.ResolveAsync();
+}
+<script type="importmap">@Json.Serialize(importMap)</script>
