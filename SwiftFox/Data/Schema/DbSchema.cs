@@ -101,6 +101,13 @@
             };
         }
 
+        public DbTable GetTable(string tableSchema, string tableName)
+        {
+            return
+                Tables.SingleOrDefault(t => t.SchemaName.Equals(tableSchema, StringComparison.InvariantCultureIgnoreCase) && t.TableName.Equals(tableName, StringComparison.InvariantCultureIgnoreCase)) ??
+                throw new ArgumentException($"Table not found: {tableSchema}.{tableName}");
+        }
+
         public List<DbTable> Tables { get; } = new List<DbTable>();
         public List<DbRelationship> Relationships { get; } = new List<DbRelationship>();
     }

@@ -6,10 +6,10 @@ using System.Text.RegularExpressions;
 namespace SwiftFox.Data.Schema
 {
     [Service(ServiceLifetime.Singleton)]
-    public class SqlSchemaBuilder
+    public class DbSchemaBuilder
     {
-        public SqlSchemaBuilder() : this(DbSchema.Defaults.BuiltInTypes, DbSchema.Defaults.ClrTypes) { }
-        public SqlSchemaBuilder(Dictionary<Type, string> builtInTypes, Dictionary<string, Type> clrTypes)
+        public DbSchemaBuilder() : this(DbSchema.Defaults.BuiltInTypes, DbSchema.Defaults.ClrTypes) { }
+        public DbSchemaBuilder(Dictionary<Type, string> builtInTypes, Dictionary<string, Type> clrTypes)
         {
             BuiltInTypes = builtInTypes;
             ClrTypes = clrTypes;
@@ -18,10 +18,8 @@ namespace SwiftFox.Data.Schema
         public Dictionary<Type, string> BuiltInTypes { get; }
         public Dictionary<string, Type> ClrTypes { get; }
 
-        public async Task<DbSchema> CreateFromConnectionAsync(DbConnection connection)
+        public async Task BuildAsync(DbSchema schema, DbConnection connection)
         {
-            var schema = new DbSchema();
-
             schema.Tables.AddRange(await connection.QueryAsync<DbTable>(
 $@"SELECT
     CatalogName = TABLE_CATALOG,
@@ -195,8 +193,6 @@ FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
                 }));
                 schema.Relationships.Add(rel.Key);
             }
-
-            return schema;
         }
 
         public Type GetClrType(DbColumn column)
