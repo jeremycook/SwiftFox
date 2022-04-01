@@ -1,5 +1,9 @@
 ﻿namespace SwiftFox.Services
 {
+    /// <summary>
+    /// Mark a class as a service. The <see cref="ServiceLifetime"/> defaults to <see cref="ServiceLifetime.Scoped"/>.
+    /// </summary>
+    /// <param name="serviceLifetime"></param>
     [AttributeUsage(AttributeTargets.Class)]
     public class ServiceAttribute : Attribute
     {

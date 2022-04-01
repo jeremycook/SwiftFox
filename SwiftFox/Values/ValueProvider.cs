@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Services
+﻿namespace SwiftFox.Values
 {
     /// <summary>
     /// Resolve a <typeparamref name="TValue"/>
@@ -21,7 +21,7 @@
             this.valueMutators = valueMutators;
         }
 
-        public async Task<TValue> ResolveAsync()
+        public async ValueTask<TValue> ResolveAsync()
         {
             if (value is null)
             {

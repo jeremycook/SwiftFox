@@ -1,5 +1,4 @@
-﻿@using Microsoft.Extensions.Options
-@inject ValueProvider<SiteLinks> siteLinksMaterializer
+﻿@inject ValueProvider<SiteLinks> siteLinksMaterializer
 @inject IOptions<SwiftFoxOptions> options
 @{
     var site = options.Value.AppTitle;
@@ -31,7 +30,14 @@
                         string href = Url.Content(item.Url);
                         bool active = this.Context.Request.Path.StartsWithSegments(href);
                         <li class="nav-item">
-                            <a class="nav-link@(active ? " active" : "")" @(active ? " aria-current=\"page\"" : "") href="@href">@item.Text</a>
+                            @if (active)
+                            {
+                                <a class="nav-link active" aria-current="page" href="@href">@item.Text</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link" href="@href">@item.Text</a>
+                            }
                         </li>
                     }
                 </ul>

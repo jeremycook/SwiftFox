@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using SwiftFox.Mvc;
 using SwiftFox.Startup;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
@@ -6,6 +7,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var assemblies = new[]
 {
@@ -53,6 +55,19 @@ builder.Services.AddAuthorization(options =>
     // By default, all incoming requests will be authorized according to the default policy.
     options.FallbackPolicy = options.DefaultPolicy;
 });
+
+
+builder.Services.AddControllers()
+    .AddJsonOptions(o =>
+    {
+        o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddJsonQueryParameterSupport();
+});
 builder.Services.AddRazorPages();
 
 builder.Services.ConfigureOptionsFromAssemblies(assemblies, builder.Configuration);
@@ -61,7 +76,12 @@ builder.Services.AddServicesFromAssemblies(assemblies);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else
 {
     app.UseExceptionHandler("/Error");
 }
@@ -74,6 +94,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllers();
 app.MapRazorPages();
 
 app.Run();

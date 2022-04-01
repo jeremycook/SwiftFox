@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SwiftFox.Configuration;
 using SwiftFox.Services;
 using System.Reflection;
 
@@ -20,18 +21,17 @@ namespace SwiftFox.Startup
             MethodInfo Configure = typeof(OptionsConfigurationServiceCollectionExtensions)
                 .GetMethod("Configure", 1, BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(IServiceCollection), typeof(IConfiguration) }, null)!;
 
-            IEnumerable<Type> optionTypes = assemblies
-                .SelectMany(a => a.ExportedTypes)
-                .Where(t => t.Name.EndsWith(options));
-
-            foreach (var type in optionTypes)
+            foreach (var type in assemblies.SelectMany(a => a.ExportedTypes))
             {
-                MethodInfo? Configure_T = Configure.MakeGenericMethod(type);
-                string sectionName = type.Name[..^options.Length];
-                IConfigurationSection? section = configuration.GetSection(sectionName);
+                if (type.GetCustomAttribute<OptionsAttribute>() is OptionsAttribute optionAttribute)
+                {
+                    MethodInfo? Configure_T = Configure.MakeGenericMethod(type);
+                    string sectionName = optionAttribute.SectionName ?? type.Name[..^options.Length];
+                    IConfigurationSection? section = configuration.GetSection(sectionName);
 
-                // Equivalent to: services.Configure<SwiftFoxOptions>(configuration.GetSection("SwiftFox"));
-                Configure_T.Invoke(null, new object?[] { services, section });
+                    // Equivalent to: services.Configure<SwiftFoxOptions>(configuration.GetSection("SwiftFox"));
+                    Configure_T.Invoke(null, new object?[] { services, section });
+                }
             }
         }
 
