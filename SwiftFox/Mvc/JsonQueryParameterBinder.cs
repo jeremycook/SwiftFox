@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SwiftFox.Mvc
 {
     public class JsonQueryParameterBinder : IModelBinder
     {
-        private static readonly JsonSerializerOptions jsonSerializerOptions = new(JsonSerializerDefaults.Web);
+        private static readonly JsonSerializerOptions jsonSerializerOptions = new(JsonSerializerDefaults.Web)
+        {
+            Converters =
+            {
+                new JsonStringEnumConverter(),
+            },
+        };
 
         private readonly ILogger<JsonQueryParameterBinder> logger;
         private readonly IObjectModelValidator validator;

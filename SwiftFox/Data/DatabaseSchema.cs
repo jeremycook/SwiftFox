@@ -6,7 +6,7 @@ namespace SwiftFox.Data.Schema
     /// <summary>
     /// A singleton service that is the <see cref="DbSchema"/>
     /// of the <see cref="SwiftFoxOptions.MainConnectionString"/> database.
-    /// Call <see cref="RefreshAsync"/> to refresh this schema.
+    /// Refresh this schema with a call to <see cref="RefreshAsync"/>.
     /// </summary>
     [Service(ServiceLifetime.Singleton)]
     public class DatabaseSchema : DbSchema
@@ -28,10 +28,17 @@ namespace SwiftFox.Data.Schema
         /// <returns></returns>
         public async Task RefreshAsync()
         {
+            DbSchema tempSchema = new();
+
+            using (var conn = new SqlConnection(options.Value.MainConnectionString))
+            {
+                await schemaBuilder.BuildAsync(tempSchema, conn);
+            }
+
             Tables.Clear();
+            Tables.AddRange(tempSchema.Tables);
             Relationships.Clear();
-            using var conn = new SqlConnection(options.Value.MainConnectionString);
-            await schemaBuilder.BuildAsync(this, conn);
+            Relationships.AddRange(tempSchema.Relationships);
         }
     }
 }

@@ -8,7 +8,7 @@
             /// Maps built-in types to the corresponding C# keyword.
             /// See: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types
             /// </summary>
-            public static readonly Dictionary<Type, string> BuiltInTypes = new Dictionary<Type, string>
+            public static readonly Dictionary<Type, string> BuiltInTypes = new()
             {
                 [typeof(bool)] = "bool",
                 [typeof(byte)] = "byte",
@@ -33,7 +33,7 @@
             /// Maps DbType, SqlDbType, OleDbType, OdbcType strings to a CLR type.
             /// See: https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/configuring-parameters-and-parameter-data-types#specifying-parameter-data-types
             /// </summary>
-            public static readonly Dictionary<string, Type> ClrTypes = new Dictionary<string, Type>(StringComparer.InvariantCultureIgnoreCase)
+            public static readonly Dictionary<string, Type> ClrTypes = new(StringComparer.InvariantCultureIgnoreCase)
             {
                 ["Boolean"] = typeof(bool),
                 ["Bit"] = typeof(bool),

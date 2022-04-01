@@ -16,11 +16,11 @@
         }
 
         /// <summary>
-        /// Quote one or more column names for safe usage in SQL constructed from user provided values.
+        /// Quote one or more column names.
         /// </summary>
         /// <param name="tableSchema"></param>
         /// <param name="tableName"></param>
-        /// <param name="columnName"></param>
+        /// <param name="columnNames"></param>
         /// <returns></returns>
         public string Columns(string tableSchema, string tableName, IEnumerable<string> columnNames)
         {
@@ -37,23 +37,45 @@
 
             foreach (var columnName in columnNames)
             {
-                string key = $"{tableSchema}/{tableName}/{columnName}";
-
-                if (!cache.TryGetValue(key, out string? sql))
-                {
-                    DbTable table = schema.GetTable(tableSchema, tableName);
-                    DbColumn column = table.GetColumn(columnName);
-
-                    sql = $"[{column.ColumnName}]";
-                    cache[key] = sql;
-                }
-
+                string sql = Column(tableSchema, tableName, columnName);
                 names.Add(sql);
             }
 
             return string.Join(",", names);
         }
 
+        /// <summary>
+        /// Quote a column name.
+        /// </summary>
+        /// <param name="tableSchema"></param>
+        /// <param name="tableName"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        public string Column(string tableSchema, string tableName, string columnName)
+        {
+            string key = $"{tableSchema}/{tableName}/{columnName}";
+
+            if (!cache.TryGetValue(key, out string? sql))
+            {
+                DbTable table = schema.GetTable(tableSchema, tableName);
+                DbColumn column = table.GetColumn(columnName);
+
+                sql = $"[{column.ColumnName}]";
+                cache[key] = sql;
+            }
+
+            return sql;
+        }
+
+        /// <summary>
+        /// Quote an order by clause.
+        /// </summary>
+        /// <param name="tableSchema"></param>
+        /// <param name="tableName"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public string OrderBy(string tableSchema, string tableName, IEnumerable<KeyValuePair<string, SortDirection>> orderBy)
         {
             if (orderBy is null)
@@ -86,6 +108,12 @@
             return string.Join(",", names);
         }
 
+        /// <summary>
+        /// Quote a schema qualified table name.
+        /// </summary>
+        /// <param name="tableSchema"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         public string Table(string tableSchema, string tableName)
         {
             string key = $"{tableSchema}/{tableName}";

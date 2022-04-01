@@ -15,7 +15,7 @@ namespace SwiftFox.Api
         }
 
         [HttpGet]
-        public async Task<ActionResult> Query([FromJsonQueryParameter] TableQuery query)
+        public async Task<ActionResult<TableQueryResult>> Query([FromJsonQueryParameter] TableQuery query)
         {
             TableQueryResult result = await database.QueryAsync(query);
             return Ok(result);
