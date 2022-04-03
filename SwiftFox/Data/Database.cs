@@ -44,9 +44,10 @@ FROM {quote.Table(query.TableSchema, query.TableName)}
 WHERE {(where.Any() ?
     string.Join(" AND ", where) :
     "1=1")}
-ORDER BY {(query.OrderBy.Any() ?
-    quote.OrderBy(query.TableSchema, query.TableName, query.OrderBy) :
-    "0")}
+ORDER BY {(
+    query.OrderBy.Any() ? quote.OrderBy(query.TableSchema, query.TableName, query.OrderBy) :
+    table.Columns.FirstOrDefault(o => o.ClrType == typeof(string)) is DbColumn column ? quote.Column(table.SchemaName, table.TableName, column.ColumnName) :
+    "1")}
 OFFSET {query.Skip} ROWS
 FETCH NEXT {query.Take} ROWS ONLY;";
 

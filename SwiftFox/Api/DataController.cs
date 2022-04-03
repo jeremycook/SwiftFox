@@ -4,7 +4,7 @@ using SwiftFox.Data;
 namespace SwiftFox.Api
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/data")]
     public class DataController : ControllerBase
     {
         private readonly Database database;
@@ -14,7 +14,7 @@ namespace SwiftFox.Api
             this.database = database;
         }
 
-        [HttpGet]
+        [HttpGet("query")]
         public async Task<ActionResult<TableQueryResult>> Query([FromJsonQueryParameter] TableQuery query)
         {
             TableQueryResult result = await database.QueryAsync(query);

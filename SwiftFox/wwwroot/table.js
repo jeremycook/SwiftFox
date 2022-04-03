@@ -1,61 +1,33 @@
 ﻿import { o, html } from 'sinuous';
+import { map } from 'sinuous/map';
 
-const data = {
-    "ex.Ticket": {
-        "columns": ["TicketId", "StatusId", "Subject"],
-        "records": [
-            ["1", "Open", "Fix this stuff"],
-        ]
-    },
-    "ex.TicketAssignee": {
-        "columns": ["TicketId", "UserId"],
-        "records": [
-            ["1", "2"],
-        ]
-    },
-    "ex.User": {
-        "columns": ["UserId", "Username"],
-        "records": [
-            ["2", "jeremy"],
-        ]
-    },
-    "ex.TicketComment": {
-        "columns": ["TicketCommentId", "TicketId", "AuthorId", "Body"],
-        "records": [
-            ["3", "1", "2", "Um, could you be more specific?"],
-        ]
-    }
-};
+export function App(props) {
 
-const meta = {
-    "ex.Ticket": {
-        "tableSchema": "ex",
-        "schemaName": "Ticket"
-    }
-};
+    const columnNames = o([]);
+    const records = o([]);
 
-export function Table(props) {
+    fetch("/api/data/query?" + new URLSearchParams({
+        query: JSON.stringify({
+            tableSchema: props.tableSchema,
+            tableName: props.tableName
+        })
+    })).then(response => response.json().then(data => {
+        columnNames(data.columnNames)
+        records(data.records)
+    }));
+
     return html`
-        <li>Hello ${props.name}</li>
-      `;
-}
-
-/**
- * 
- * @param {{name:string}} props
- */
-export function Welcome(props) {
-    return html`
-        <li>Hello ${props.name}</li>
-      `;
-}
-
-export function App() {
-    return html`
-        <ul>
-          <${Welcome} name="Sara" />
-          <${Welcome} name="Bob" />
-          <${Welcome} name="Edite" />
-        </ul>
-      `;
+<table class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            ${map(columnNames, name => html`<th>${name}</th>`)}
+        </tr>
+    </thead>
+    <tbody>
+        ${map(records, record => html`
+        <tr>${record.map(value => html`
+            <td>${value}</td>`)}
+        </tr>`)}
+    </tbody>
+</table>`;
 }

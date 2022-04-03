@@ -1,16 +1,8 @@
-﻿@page "/table/{schema:alpha}.{table:alpha}"
+﻿@page "/table/{TableSchema:alpha}/{TableName:alpha}"
 @model SwiftFox.Pages.TableModel
 @{
-    ViewBag._Title = $"{Model.Schema}.{Model.Table}";
+    ViewBag._Title = $"{Model.Table.SchemaName}.{Model.Table.TableName}";
 }
 
-<script type="module">
-    import  { App } from 'swift-fox/table';
-    import { html } from 'sinuous';
-
-    document.body.append(
-      html`
-        <${App} />
-      `
-    );
-</script>
+<div swiftfox-app="swiftfox/table" swiftfox-app-props="@Json.Serialize(new {  tableSchema = Model.Table.SchemaName, tableName = Model.Table.TableName }).ToString()">
+</div>
