@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Net.Mime;
 
-namespace SwiftFox.Mvc
+namespace Swiftfox.Mvc
 {
     public static class JsonQueryParameterSwaggerGenExtensions
     {

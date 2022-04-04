@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Services
+﻿namespace Swiftfox.Services
 {
     /// <summary>
     /// Mark a class as a service. The <see cref="ServiceLifetime"/> defaults to <see cref="ServiceLifetime.Scoped"/>.

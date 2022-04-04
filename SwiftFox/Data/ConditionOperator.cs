@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SwiftFox.Data
+namespace Swiftfox.Data
 {
     public enum ConditionOperator
     {

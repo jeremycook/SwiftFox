@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace SwiftFox.Pages
+namespace Swiftfox.Pages
 {
     public class NotebookModel : PageModel
     {

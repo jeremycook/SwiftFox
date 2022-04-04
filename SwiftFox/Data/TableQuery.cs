@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SwiftFox.Data
+namespace Swiftfox.Data
 {
     public class TableQuery
     {

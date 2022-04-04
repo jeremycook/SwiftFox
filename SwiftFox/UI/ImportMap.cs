@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.UI
+﻿namespace Swiftfox.UI
 {
     public class ImportMap
     {

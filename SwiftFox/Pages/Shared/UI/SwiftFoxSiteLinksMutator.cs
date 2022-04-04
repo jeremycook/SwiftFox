@@ -1,7 +1,7 @@
-﻿namespace SwiftFox.Pages.Shared.UI
+﻿namespace Swiftfox.Pages.Shared.UI
 {
     [Service(typeof(IValueMutator<SiteLinks>))]
-    public class SwiftFoxSiteLinksMutator : IValueMutator<SiteLinks>
+    public class SwiftfoxSiteLinksMutator : IValueMutator<SiteLinks>
     {
         public ValueTask MutateAsync(SiteLinks siteLinks)
         {

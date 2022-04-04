@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SwiftFox.Data;
+using Swiftfox.Data;
 
-namespace SwiftFox.Api
+namespace Swiftfox.Api
 {
     [ApiController]
     [Route("api/data")]

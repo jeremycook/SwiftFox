@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using SwiftFox.Data.Schema;
+using Swiftfox.Data.Schema;
 using System.Data.SqlClient;
 
-namespace SwiftFox.Data
+namespace Swiftfox.Data
 {
     [Service]
     public class Database
@@ -14,10 +14,10 @@ namespace SwiftFox.Data
             [ConditionOperator.LessThan] = "<",
             [ConditionOperator.LessThanOrEqualTo] = "<=",
         };
-        private readonly IOptions<SwiftFoxOptions> options;
+        private readonly IOptions<SwiftfoxOptions> options;
         private readonly DatabaseQuote quote;
 
-        public Database(IOptions<SwiftFoxOptions> options, DatabaseQuote quote, DatabaseSchema schema)
+        public Database(IOptions<SwiftfoxOptions> options, DatabaseQuote quote, DatabaseSchema schema)
         {
             this.options = options;
             this.quote = quote;

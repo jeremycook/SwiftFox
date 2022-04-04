@@ -1,20 +1,20 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 
-namespace SwiftFox.Data.Schema
+namespace Swiftfox.Data.Schema
 {
     /// <summary>
     /// A singleton service that is the <see cref="DbSchema"/>
-    /// of the <see cref="SwiftFoxOptions.MainConnectionString"/> database.
+    /// of the <see cref="SwiftfoxOptions.MainConnectionString"/> database.
     /// Refresh this schema with a call to <see cref="RefreshAsync"/>.
     /// </summary>
     [Service(ServiceLifetime.Singleton)]
     public class DatabaseSchema : DbSchema
     {
-        private readonly IOptions<SwiftFoxOptions> options;
+        private readonly IOptions<SwiftfoxOptions> options;
         private readonly DbSchemaBuilder schemaBuilder;
 
-        public DatabaseSchema(IOptions<SwiftFoxOptions> options, DbSchemaBuilder schemaBuilder)
+        public DatabaseSchema(IOptions<SwiftfoxOptions> options, DbSchemaBuilder schemaBuilder)
         {
             this.options = options;
             this.schemaBuilder = schemaBuilder;

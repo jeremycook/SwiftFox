@@ -1,4 +1,4 @@
-﻿using SwiftFox.Mvc;
+﻿using Swiftfox.Mvc;
 
 namespace Microsoft.AspNetCore.Mvc
 {

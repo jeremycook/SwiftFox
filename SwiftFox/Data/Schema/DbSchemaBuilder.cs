@@ -3,7 +3,7 @@ using Humanizer;
 using System.Data.Common;
 using System.Text.RegularExpressions;
 
-namespace SwiftFox.Data.Schema
+namespace Swiftfox.Data.Schema
 {
     [Service(ServiceLifetime.Singleton)]
     public class DbSchemaBuilder

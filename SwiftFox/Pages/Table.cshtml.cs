@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using SwiftFox.Data.Schema;
+using Swiftfox.Data.Schema;
 
-namespace SwiftFox.Pages
+namespace Swiftfox.Pages
 {
     public class TableModel : PageModel
     {

@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Values
+﻿namespace Swiftfox.Values
 {
     /// <summary>
     /// Resolve a <typeparamref name="TValue"/>

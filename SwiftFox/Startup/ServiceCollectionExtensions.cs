@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SwiftFox.Configuration;
-using SwiftFox.Services;
+using Swiftfox.Configuration;
+using Swiftfox.Services;
 using System.Reflection;
 
-namespace SwiftFox.Startup
+namespace Swiftfox.Startup
 {
     public static class ServiceCollectionExtensions
     {
@@ -29,7 +29,7 @@ namespace SwiftFox.Startup
                     string sectionName = optionAttribute.SectionName ?? type.Name[..^options.Length];
                     IConfigurationSection? section = configuration.GetSection(sectionName);
 
-                    // Equivalent to: services.Configure<SwiftFoxOptions>(configuration.GetSection("SwiftFox"));
+                    // Equivalent to: services.Configure<SwiftfoxOptions>(configuration.GetSection("Swiftfox"));
                     Configure_T.Invoke(null, new object?[] { services, section });
                 }
             }

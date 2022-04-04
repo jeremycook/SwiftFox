@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Services
+﻿namespace Swiftfox.Services
 {
     public enum ServiceLifetime
     {

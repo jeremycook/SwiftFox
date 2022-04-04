@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SwiftFox.Mvc
+namespace Swiftfox.Mvc
 {
     public class JsonQueryParameterBinder : IModelBinder
     {

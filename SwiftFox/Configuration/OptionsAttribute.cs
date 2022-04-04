@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Configuration
+﻿namespace Swiftfox.Configuration
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class OptionsAttribute : Attribute

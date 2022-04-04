@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Data
+﻿namespace Swiftfox.Data
 {
     public static class SwiftConvert
     {

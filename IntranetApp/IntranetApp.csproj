@@ -14,11 +14,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SwiftFox\SwiftFox.csproj" />
+		<Folder Include="Pages\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Pages\" />
+	  <ProjectReference Include="..\Swiftfox\Swiftfox.csproj" />
 	</ItemGroup>
 
 </Project>

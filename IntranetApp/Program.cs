@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
-using SwiftFox.Mvc;
-using SwiftFox.Startup;
+using Swiftfox.Mvc;
+using Swiftfox.Startup;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Security.Claims;
@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 
 var assemblies = new[]
 {
-    typeof(SwiftFox.SwiftFoxOptions).Assembly,
+    typeof(Swiftfox.SwiftfoxOptions).Assembly,
     typeof(Program).Assembly,
 };
 var builder = WebApplication.CreateBuilder(args);

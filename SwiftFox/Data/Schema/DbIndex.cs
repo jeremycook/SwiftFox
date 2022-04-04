@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Data.Schema
+﻿namespace Swiftfox.Data.Schema
 {
     public class DbIndex
     {

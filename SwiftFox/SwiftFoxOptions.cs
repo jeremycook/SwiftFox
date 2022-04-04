@@ -1,11 +1,11 @@
-﻿using SwiftFox.Configuration;
+﻿using Swiftfox.Configuration;
 
-namespace SwiftFox
+namespace Swiftfox
 {
     [Options]
-    public class SwiftFoxOptions
+    public class SwiftfoxOptions
     {
-        public string AppTitle { get; set; } = "Configuration=SwiftFox:AppTitle";
-        public string MainConnectionString { get; set; } = "Configuration=SwiftFox:MainConnectionString";
+        public string AppTitle { get; set; } = "Configuration=Swiftfox:AppTitle";
+        public string MainConnectionString { get; set; } = "Configuration=Swiftfox:MainConnectionString";
     }
 }

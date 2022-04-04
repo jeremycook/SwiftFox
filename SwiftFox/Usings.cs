@@ -1,4 +1,4 @@
 ﻿global using Microsoft.Extensions.Logging;
-global using SwiftFox.Pages.Shared.UI;
-global using SwiftFox.Services;
-global using SwiftFox.Values;
+global using Swiftfox.Pages.Shared.UI;
+global using Swiftfox.Services;
+global using Swiftfox.Values;

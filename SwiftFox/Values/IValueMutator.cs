@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Values
+﻿namespace Swiftfox.Values
 {
     public interface IValueMutator<TValue>
     {

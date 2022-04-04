@@ -1,6 +1,6 @@
-﻿using SwiftFox.UI;
+﻿using Swiftfox.UI;
 
-namespace SwiftFox.Pages.Shared.UI
+namespace Swiftfox.Pages.Shared.UI
 {
     public class SiteLinks
     {

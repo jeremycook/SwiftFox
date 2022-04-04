@@ -1,4 +1,4 @@
-﻿namespace SwiftFox.Data.Schema
+﻿namespace Swiftfox.Data.Schema
 {
     /// <summary>
     /// A singleton service that uses <see cref="DatabaseSchema"/> for reference to
