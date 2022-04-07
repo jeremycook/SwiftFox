@@ -1,3 +1,7 @@
 ﻿.vs/
 bin/
 obj/
+node_modules/
+Swiftfox/wwwroot/bootstrap-icons/
+*.csproj.user
+*.pubxml.user
