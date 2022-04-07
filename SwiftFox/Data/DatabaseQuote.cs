@@ -76,7 +76,7 @@
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public string OrderBy(string tableSchema, string tableName, IEnumerable<KeyValuePair<string, SortDirection>> orderBy)
+        public string OrderBy(string tableSchema, string tableName, IEnumerable<OrderByPart> orderBy)
         {
             if (orderBy is null)
             {
@@ -96,9 +96,9 @@
                 if (!cache.TryGetValue(key, out string? sql))
                 {
                     DbTable table = schema.GetTable(tableSchema, tableName);
-                    DbColumn column = table.GetColumn(item.Key);
+                    DbColumn column = table.GetColumn(item.ColumnName);
 
-                    sql = $"[{column.ColumnName}]{(item.Value == SortDirection.Desc ? " DESC" : "")}";
+                    sql = $"[{column.ColumnName}]{(item.SortDirection == SortDirection.Desc ? " DESC" : "")}";
                     cache[key] = sql;
                 }
 

@@ -7,12 +7,12 @@ namespace Swiftfox.Data
     [Service]
     public class Database
     {
-        private static readonly Dictionary<ConditionOperator, string> operatorSymbols = new()
+        private static readonly Dictionary<Operator, string> operatorSymbols = new()
         {
-            [ConditionOperator.GreaterThan] = ">",
-            [ConditionOperator.GreaterThanOrEqualTo] = ">=",
-            [ConditionOperator.LessThan] = "<",
-            [ConditionOperator.LessThanOrEqualTo] = "<=",
+            [Operator.GreaterThan] = ">",
+            [Operator.GreaterThanOrEqualTo] = ">=",
+            [Operator.LessThan] = "<",
+            [Operator.LessThanOrEqualTo] = "<=",
         };
         private readonly IOptions<SwiftfoxOptions> options;
         private readonly DatabaseQuote quote;
@@ -85,14 +85,14 @@ FETCH NEXT {query.Take} ROWS ONLY;";
         private List<string> WhereClause(TableQuery query, DbTable table, SqlParameterCollection parameters)
         {
             var where = new List<string>();
-            foreach (var condition in query.Conditions)
+            foreach (var condition in query.ColumnConditions)
             {
                 var column = table.GetColumn(condition.ColumnName);
                 string columnSql = quote.Column(query.TableSchema, query.TableName, condition.ColumnName);
 
                 switch (condition.Operator)
                 {
-                    case ConditionOperator.Between:
+                    case Operator.Between:
                         {
                             object leftValue = SwiftConvert.ChangeType(condition.Values.First(), column.ClrType);
                             object rightValue = SwiftConvert.ChangeType(condition.Values.Last(), column.ClrType);
@@ -103,10 +103,10 @@ FETCH NEXT {query.Take} ROWS ONLY;";
                             where.Add($"{columnSql} BETWEEN {leftParameter.ParameterName} AND {rightParameter.ParameterName}");
                             break;
                         }
-                    case ConditionOperator.Contains:
-                    case ConditionOperator.NotContains:
+                    case Operator.Contains:
+                    case Operator.NotContains:
                         {
-                            bool notLike = condition.Operator == ConditionOperator.NotContains;
+                            bool notLike = condition.Operator == Operator.NotContains;
 
                             var parts = new List<string>(condition.Values.Count);
                             foreach (string value in condition.Values)
@@ -127,10 +127,10 @@ FETCH NEXT {query.Take} ROWS ONLY;";
 
                             break;
                         }
-                    case ConditionOperator.EqualTo:
-                    case ConditionOperator.NotEqualTo:
+                    case Operator.EqualTo:
+                    case Operator.NotEqualTo:
                         {
-                            bool notEqual = condition.Operator == ConditionOperator.NotEqualTo;
+                            bool notEqual = condition.Operator == Operator.NotEqualTo;
 
                             var parts = new List<string>(condition.Values.Count);
                             foreach (string value in condition.Values)
@@ -143,10 +143,10 @@ FETCH NEXT {query.Take} ROWS ONLY;";
 
                             break;
                         }
-                    case ConditionOperator.GreaterThan:
-                    case ConditionOperator.GreaterThanOrEqualTo:
-                    case ConditionOperator.LessThan:
-                    case ConditionOperator.LessThanOrEqualTo:
+                    case Operator.GreaterThan:
+                    case Operator.GreaterThanOrEqualTo:
+                    case Operator.LessThan:
+                    case Operator.LessThanOrEqualTo:
                         {
                             var @operator = operatorSymbols[condition.Operator];
                             var parts = new List<string>(condition.Values.Count);

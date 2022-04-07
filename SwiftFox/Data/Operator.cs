@@ -2,7 +2,7 @@
 
 namespace Swiftfox.Data
 {
-    public enum ConditionOperator
+    public enum Operator
     {
         Between,
         Contains,

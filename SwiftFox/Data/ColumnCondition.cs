@@ -1,9 +1,9 @@
 ﻿namespace Swiftfox.Data
 {
-    public class Condition
+    public class ColumnCondition
     {
-        public ConditionOperator Operator { get; set; } = ConditionOperator.EqualTo;
         public string ColumnName { get; set; } = null!;
+        public Operator Operator { get; set; } = Operator.EqualTo;
         public List<string> Values { get; set; } = new();
     }
 }
